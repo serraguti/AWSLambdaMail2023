@@ -10,20 +10,19 @@ namespace AWSLambdaMail.Helpers
 {
     public class HelperMail
     {
-        public async Task SendMailAsync(string para, string asunto, string mensaje)
+        public async Task SendMailAsync
+            (string para, string asunto, string mensaje)
         {
             MailMessage mail = this.ConfigureMailMessage(para, asunto, mensaje);
             SmtpClient client = this.ConfigureSmtpClient();
             await client.SendMailAsync(mail);
         }
 
-
-
         private MailMessage ConfigureMailMessage
             (string para, string asunto, string mensaje)
         {
             MailMessage mailMessage = new MailMessage();
-            string email = this.model.User;
+            string email = "mail@mail.com";
             mailMessage.From = new MailAddress(email);
             mailMessage.To.Add(new MailAddress(para));
             mailMessage.Subject = asunto;
@@ -32,16 +31,14 @@ namespace AWSLambdaMail.Helpers
             return mailMessage;
         }
 
-
-
         private SmtpClient ConfigureSmtpClient()
         {
-            string user = this.model.User;
-            string password = this.model.Password;
-            string host = this.model.Host;
-            int port = this.model.Port;
-            bool enableSSL = this.model.EnableSsl;
-            bool defaultCredentials = this.model.DefaultCredentials;
+            string user = "";
+            string password = "";
+            string host = "smtp.gmail.com";
+            int port = 587; //587
+            bool enableSSL = true;
+            bool defaultCredentials = false;
             SmtpClient client = new SmtpClient();
             client.Host = host;
             client.Port = port;
